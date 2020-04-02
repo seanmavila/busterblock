@@ -74,7 +74,7 @@ nav a:hover::before {
 
 .form-box {
   width: 380px;
-  height: 480px;
+  height: 500px;
   position: relative;
   margin: 6% auto;
   background: #444;
@@ -148,7 +148,7 @@ nav a:hover::before {
 span {
   color: #777;
   font-size: 12px;
-  bottom: 68px;
+  bottom: 65px;
   position: absolute;
 }
 
@@ -204,4 +204,16 @@ span {
   transition: 0.4s;
   line-height: 40px;
   width: 0px;
+}
+
+.greeting {
+  font-size: 40px;
+  color: #55d6aa;
+  margin: 30px 10px 30px 0;
+}
+.greeting span {
+  font-size: 40px;
+  color: #55d6aa;
+  top: 0;
+  position: relative;
 }
