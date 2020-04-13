@@ -3,25 +3,12 @@ const fs = require("fs");
 const express = require("express");
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const mysql = require("mysql");
 const port = 3306;
 const app = express();
 
 //SQL stuff
-var connection = mysql.createConnection({
-  host: "localhost",
-  user: "cowcow",
-  password: "CowsGoMoo",
-  database: "Busterblock"
-});
-
-connection.connect(function(error) {
-  if (!!error) {
-    console.log("mysql connect Error");
-  } else {
-    console.log("Connected to mysql");
-  }
-});
+var database = require('./sqlManager.js');
+database.init();
 
 //HTML stuff
 
@@ -72,19 +59,40 @@ app.post("/login", function(req,resp){
   //might just use authenticated in session and not keep track off password
   userSession.username = req.body.username;
   userSession.password = req.body.password;
-  userSession.authenticated = true;//creat a authenticate function to check database
-  if(userSession.authenticated)
-    resp.redirect("/home");
-  else
-    resp.redirect('/');
-  //probably can change this response to be better
-
+  database.checkUserPass(userSession.username, userSession.password, function(result){
+    userSession.authenticated = result;
+    if(userSession.authenticated)
+      resp.redirect("/home");
+    else
+      resp.redirect('/');
+      //probably can change this response to be better
+  });
 });
 
 app.post("/logout", function(req,resp){
   userSession  = req.session;
   userSession.destroy(function(err){
     resp.redirect('/');
+  });
+});
+
+app.post("/register", function(req,resp){
+  userSession  = req.session;
+  userSession.username = req.body.username;
+  userSession.password = req.body.password;
+  database.makeUser(userSession.username, userSession.password, 0, function(result){
+    if(result)
+    {
+      database.checkUserPass(userSession.username, userSession.password, function(result){
+        userSession.authenticated = result;
+        if(userSession.authenticated)
+          resp.redirect("/home");
+        else
+          resp.redirect('/');
+      });
+    }
+    else
+      resp.redirect('/');
   });
 });
 

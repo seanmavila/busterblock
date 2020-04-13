@@ -11,12 +11,21 @@
     <title>busterblock</title>
   </head>
   <body>
-    you need to log in before getting home page (authenticate is default true for now)
+    you need to log in before getting home page
     <form action="/login" method="post">
       <label for="username">Username:</label><br>
-      <input type="text" name="username" value="Snoop"><br>
+      <input type="text" name="username" placeholder="Snoop"><br>
       <label for="password">Password:</label><br>
-      <input type="text" name="password" value="Dog"><br>
+      <input type="text" name="password" placeholder="Dog"><br>
       <input type="submit" value="Submit">
+    </form><br><br>
+    this is for registering
+    <form action="/register" method="post">
+      <label for="username">Username:</label><br>
+      <input type="text" name="username" placeholder="Snoop"><br>
+      <label for="password">Password:</label><br>
+      <input type="text" name="password" placeholder="Dog"><br>
+      <input type="submit" value="Submit">
+    </form>
   </body>
 </html>
