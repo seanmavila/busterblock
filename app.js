@@ -96,6 +96,13 @@ app.post("/register", function(req,resp){
   });
 });
 
+app.post("/getAllMovies", function(req, res){
+  database.getAllMovies(function(response){
+    console.log(response);
+    res.json(response);
+  });
+});
+
 var server = http.createServer(app);
 server.listen("3000", () => {
   console.log("Server started on port 3000");

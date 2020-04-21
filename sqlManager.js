@@ -22,8 +22,8 @@ exports.init = function()
 exports.checkUserPass = function(username, password, callback)
 {
   //run sql qurry
-  connection.query(`SELECT uid FROM users WHERE name = "${username}" AND pass = "${password}"`, function(err, res){
-    if(res.length > 0)
+  connection.query(`SELECT uid FROM users WHERE name = "${username}" AND pass = "${password}"`, function(err, data){
+    if(data.length > 0)
     {
       callback(true);
     }
@@ -41,5 +41,15 @@ exports.makeUser = function(username, password, userPriv, callback)
       callback(false);
     else
       callback(true);
+  });
+}
+
+exports.getAllMovies = function(callback)
+{
+  connection.query(`SELECT * FROM movies`, function(err, data){
+    if(err)
+      callback(false);
+    else
+      callback(data);
   });
 }
