@@ -1,109 +1,50 @@
-const http = require("http");
-const fs = require("fs");
 const express = require("express");
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const port = 3306;
+const session = require("express-session");
+const path = require("path");
+const pageRouter = require("./routes/pages");
 const app = express();
 
-//SQL stuff
-var database = require('./sqlManager.js');
-database.init();
+// for body parser. to collect data that sent from the client.
+app.use(express.urlencoded({ extended: false }));
 
-//HTML stuff
+// Serve static files. CSS, Images, JS files ... etc
+app.use(express.static(path.join(__dirname, "public")));
 
-//im going to structure this project the same way im used
-app.use(express.static("./public"));
-app.set('view engine', 'ejs');
+// Template engine. PUG
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
 
-app.use(session({
-  secret: 'smokeweedeverday',
-  resave:true,
-  saveUninitialized:true,
-  cookie:{maxAge:60000}
-}));
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
-
-var userSession;
-
-app.get("/", function(req, resp) {
-  userSession  = req.session;
-  if(userSession.authenticated)
-  {
-    resp.render("home");
-  }
-  else
-  {
-    resp.render("login");
-  }
-});
-
-app.get("/home", function(req,resp){
-  userSession  = req.session;
-  if(userSession.authenticated)
-  {
-    resp.render("home");
-  }
-  else
-  {
-    resp.render("login");
-  }
-});
-
-app.post("/login", function(req,resp){
-  userSession  = req.session;
-  //might just use authenticated in session and not keep track off password
-  userSession.username = req.body.username;
-  userSession.password = req.body.password;
-  database.checkUserPass(userSession.username, userSession.password, function(result){
-    userSession.authenticated = result;
-    if(userSession.authenticated)
-      resp.redirect("/home");
-    else
-      resp.redirect('/');
-      //probably can change this response to be better
-  });
-});
-
-app.post("/logout", function(req,resp){
-  userSession  = req.session;
-  userSession.destroy(function(err){
-    resp.redirect('/');
-  });
-});
-
-app.post("/register", function(req,resp){
-  userSession  = req.session;
-  userSession.username = req.body.username;
-  userSession.password = req.body.password;
-  database.makeUser(userSession.username, userSession.password, 0, function(result){
-    if(result)
-    {
-      database.checkUserPass(userSession.username, userSession.password, function(result){
-        userSession.authenticated = result;
-        if(userSession.authenticated)
-          resp.redirect("/home");
-        else
-          resp.redirect('/');
-      });
+// session
+app.use(
+  session({
+    secret: "ayyylmao",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 60 * 1000 * 30
     }
-    else
-      resp.redirect('/');
-  });
+  })
+);
+
+// Routers
+app.use("/", pageRouter);
+
+// Errors => page not found 404
+app.use((req, res, next) => {
+  var err = new Error("Page not found");
+  err.status = 404;
+  next(err);
 });
 
-app.post("/getAllMovies", function(req, res){
-  database.getAllMovies(function(response){
-    console.log(response);
-    res.json(response);
-  });
+// Handling errors (send them to the client)
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.send(err.message);
 });
 
-var server = http.createServer(app);
-server.listen("3000", () => {
-  console.log("Server started on port 3000");
+// Setting up the server
+app.listen(3000, () => {
+  console.log("Server is running on port 3000...");
 });
+
+module.exports = app;
