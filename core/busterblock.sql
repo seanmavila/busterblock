@@ -86,7 +86,7 @@ CREATE TABLE `users`
   `password` varchar
 (128) DEFAULT NULL,
   PRIMARY KEY
-(`uid`)
+(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

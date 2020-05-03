@@ -1,9 +1,12 @@
 const express = require("express");
 const User = require("../core/user");
+const Movies = require("../core/movies");
 const router = express.Router();
 
 // create an object from the class User in the file core/user.js
 const user = new User();
+
+const movies = new Movies();
 
 // Get the index page
 router.get("/", (req, res, next) => {
@@ -26,6 +29,19 @@ router.get("/home", (req, res, next) => {
     return;
   }
   res.redirect("/");
+});
+
+//Get Movies page
+router.get("/Movies", (req, res, next) => {
+  let user = req.session.user;
+
+  if (user) {
+    movies.getAll(function(allmovies){
+      res.render("movies", { opp: req.session.opp, name: user.fullname, movies: allmovies});
+    });
+  }
+  else
+    res.redirect("/");
 });
 
 // Post login data
