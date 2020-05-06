@@ -1,32 +1,27 @@
 extends layout
 
-mixin message(opp, name)
-    if(opp)
-        h1.greeting Logged in as
-            span=name
-    else
-        h1.greeting Welcome
-            span=name
-            |  to our website
-
-
 append links
     li(style="float: right;")
         a(href="/logout") Logout
     li(style="float: right;")
         a(href="/Movies") Movies
+        
+
 
 block content
     .movieTableContainer
+      script(type='text/javascript').
+        var movies =!{JSON.stringify(movies)}
+      script(src="/scripts/movieSelect.js")
       table.movieTable
-        tr
-          th movie title
-          th genre 
-          th stuff here
-          th stuff here
+        tr.movieTableHeadRow
+          th.movieTableCells movie title
+          th.movieTableCells genre 
+          th.movieTableCells stuff here
+          th.movieTableCells stuff here
         each movie in movies
-          tr
-            td= movie.title
-            td= movie.genere
-            td some data
-            td some data
+          tr.movieTableRow(id=movie.mid)
+            td.movieTableCells= movie.title
+            td.movieTableCells= movie.genere
+            td.movieTableCells some data
+            td.movieTableCells some data

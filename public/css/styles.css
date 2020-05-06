@@ -218,35 +218,46 @@ span {
   position: relative;
 }
 
+
 .movieTableContainer
 {
+  position: absolute;
   width: 100%;
-  overflow-x: auto;
 }
 
 .movieTable
 {
-  border-collapse: collapse;
   width: 100%;
-  padding: 20px;
-  color: grey;
+  border-collapse: collapse;
 }
 
-.movieTable > tbody
+.movieTableHeadRow
 {
+  height: 50px;
 }
 
-.movieTable > tbody > tr:nth-child(even)
+.movieTableRow
+{
+  height: 50px;
+  cursor: pointer;
+}
+
+.movieTableRow:hover , .movieTableRow:nth-child(even):hover
+{
+  background-color: rgba(255, 255, 255, .1);
+}
+
+.movieTableRow:nth-child(even)
 {
   background-color: rgba(0, 0, 0, .1);
 }
 
-.movieTable > tbody > tr > th , .movieTable > tbody > tr > td
+.movieTableRowSelected
 {
+  background-color: #55d6aa !important;
+}
 
-  border-left: 1px black solid;
-  border-right: 1px black solid;
-  height: 50px;
-  width: 800px;
+.movieTableCells
+{
   padding: 8px;
 }
