@@ -27,4 +27,15 @@ $( document ).ready(function(){
     console.log(selectedMovies);
   });
 
+  $(".checkoutContainer").click(function(){
+    let movieIDs = [];
+    let num = 0;
+    selectedMovies.forEach(function(movie){
+      movieIDs[num++] = movie.mid;
+    });
+    $.post("/addToCart", {moviesChosen: movieIDs.join()}, function(){
+      location.href = "/Checkout";
+    });
+  });
+
 });

@@ -44,6 +44,27 @@ router.get("/Movies", (req, res, next) => {
     res.redirect("/");
 });
 
+router.get("/Checkout", (req, res, next) => {
+  let user = req.session.user;
+
+  if (user) {
+    console.log(req.session.shoppingCart);
+    res.render("checkout", {moviesChosen: req.session.shoppingCart});
+  }
+  else
+    res.redirect("/");
+});
+
+router.post("/addToCart", (req, res, next) => {
+  let user = req.session.user;
+
+  if (user) {
+    req.session.shoppingCart = req.body.moviesChosen;
+    console.log(req.body.moviesChosen);
+    res.end();
+  }
+});
+
 // Post login data
 router.post("/login", (req, res, next) => {
   // The data sent from the user are stored in the req.body object.

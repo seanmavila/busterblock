@@ -218,10 +218,16 @@ span {
   position: relative;
 }
 
+.searchContainer
+{
+  position: relative;
+  width: 50%;
+  height: 50px;
+}
 
 .movieTableContainer
 {
-  position: absolute;
+  position: relative;
   width: 100%;
 }
 
@@ -260,4 +266,21 @@ span {
 .movieTableCells
 {
   padding: 8px;
+}
+
+.checkoutContainer
+{
+  position: fixed;
+  right: 0px;
+  bottom: 50px;
+  background-color: rgba(85, 214, 170, 1);
+  width: 170px;
+  height: 60px;
+  text-align: center;
+  color: #42a784;
+  font-family: Impact, Charcoal, sans-serif;
+  font-size: 33px;
+  line-height: 60px;
+  border-radius: 30px 0px 0px 30px;
+  cursor: pointer;
 }

@@ -9,19 +9,26 @@ append links
 
 
 block content
-    .movieTableContainer
-      script(type='text/javascript').
-        var movies =!{JSON.stringify(movies)}
-      script(src="/scripts/movieSelect.js")
-      table.movieTable
-        tr.movieTableHeadRow
-          th.movieTableCells movie title
-          th.movieTableCells genre 
-          th.movieTableCells stuff here
-          th.movieTableCells stuff here
-        each movie in movies
-          tr.movieTableRow(id=movie.mid)
-            td.movieTableCells= movie.title
-            td.movieTableCells= movie.genere
-            td.movieTableCells some data
-            td.movieTableCells some data
+  .searchContainer
+    .search-box
+      input.search-text(type='text' name='' placeholder='Type to serach')
+      a.search-btn(href='##')
+        u
+          i.fas.fa-search
+  .movieTableContainer
+    script(type='text/javascript').
+      var movies =!{JSON.stringify(movies)}
+    script(src="/scripts/movieSelect.js")
+    table.movieTable
+      tr.movieTableHeadRow
+        th.movieTableCells movie title
+        th.movieTableCells genre 
+        th.movieTableCells stuff here
+        th.movieTableCells stuff here
+      each movie in movies
+        tr.movieTableRow(id=movie.mid)
+          td.movieTableCells= movie.title
+          td.movieTableCells= movie.genere
+          td.movieTableCells some data
+          td.movieTableCells some data
+  .checkoutContainer Check Out!
