@@ -276,10 +276,64 @@ span {
   cursor: pointer;
 }
 
-.user li {
-  list-style: none;
+.adminform-box {
+  width: 760px;
+  height: 500px;
+  position: relative;
+  margin: 6% auto;
+  background: #444;
+  padding: 5px;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
-.user li .submit-btn {
-  padding-left: 14px;
+.adminbtn-box {
+  width: 515px;
+  margin: 35px auto;
+  position: relative;
+  box-shadow: 0 0 10px 2px #55d6aa;
+  border-radius: 30px;
+}
+
+.admintoggle-btn {
+  padding: 10px 28px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  outline: none;
+  position: relative;
+}
+
+#adminbtn {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 110px;
+  height: 100%;
+  background: #55d6aa;
+  border-radius: 30px;
+  transition: 0.5s;
+}
+
+.admininput-group {
+  top: 180px;
+  position: absolute;
+  width: 280px;
+  transition: 0.5s;
+}
+
+#addMovie {
+  left: 250px;
+}
+
+#delMovie {
+  left: 800px;
+}
+
+#updateUser {
+  left: 800px;
+}
+
+#delUser {
+  left: 800px;
 }

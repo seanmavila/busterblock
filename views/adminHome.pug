@@ -21,11 +21,63 @@ block content
     .dashboard 
         .user 
             +message(opp, name)
-            li(style="float: left;")
-                input.submit-btn(type='submit' value='Add Movies')
-            li(style="float: left;")
-                input.submit-btn(type='submit' value='Delete Movies')
-            li(style="float: left;")
-                input.submit-btn(type='submit' value='Update Users')
-            li(style="float: left;")
-                input.submit-btn(type='submit' value='Delete Users')
+    .adminform-box
+        .adminbtn-box
+            #adminbtn
+            button.admintoggle-btn(type='button' onclick='addMovie()')
+                | Add Movie
+            button.admintoggle-btn(type='button' onclick='delMovie()')
+                | Delete Movie
+            button.admintoggle-btn(type='button' onclick='updateUser()')
+                | Update User
+            button.admintoggle-btn(type='button' onclick='delUser()')
+                | Delete User
+        form#addMovie.admininput-group(method="post" action="/createMovie")
+            input.input-field(type='text' placeholder='Movie ID' name='mid')
+            input.input-field(type='text' placeholder='Movie Title' name='title')
+            input.input-field(type='text' placeholder='Genre' name='genere')
+            input.submit-btn(type='submit' value='Add')
+        form#delMovie.admininput-group(method="post" action="/delMovie")
+            input.input-field(type='text' placeholder='Movie ID' name="mid")
+            input.submit-btn(type='submit' value='Delete')
+        form#updateUser.admininput-group(method="post" action="/updateUser")
+            input.input-field(type='text' placeholder='Username' name='username')
+            input.input-field(type='text' placeholder='Rank' name='userRank')
+            input.submit-btn(type='submit' value='Update')
+        form#delUser.admininput-group(method="post" action="/delUser")
+            input.input-field(type='text' placeholder='User ID' name='id')
+            input.submit-btn(type='submit' value='Delete')
+    script.
+        var x = document.getElementById("addMovie");
+        var y = document.getElementById("delMovie");
+        var z = document.getElementById("adminbtn");
+        var a = document.getElementById("updateUser");
+        var b = document.getElementById("delUser");
+        function delUser(){
+            x.style.left = "-300px";
+            y.style.left = "-300px";
+            z.style.left = "405px";
+            a.style.left = "-300px";
+            b.style.left = "250px";
+        }
+        function updateUser(){
+            x.style.left = "-300px";
+            y.style.left = "-300px";
+            z.style.left = "265px";
+            a.style.left = "250px";
+            b.style.left = "800px";
+        }
+        function delMovie() {
+            x.style.left = "-300px";
+            y.style.left = "250px";
+            z.style.left = "133px";
+            a.style.left = "800px";
+            b.style.left = "800px";
+        }
+        function addMovie() {
+            x.style.left = "250px";
+            y.style.left = "800px";
+            z.style.left = "0px";
+            a.style.left = "800px";
+            b.style.left = "800px";
+        }
