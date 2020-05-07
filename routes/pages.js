@@ -1,9 +1,12 @@
 const express = require("express");
 const User = require("../core/user");
+const Movies = require("../core/movies");
 const router = express.Router();
 
 // create an object from the class User in the file core/user.js
 const user = new User();
+
+const movies = new Movies();
 
 // Get the index page
 router.get("/", (req, res, next) => {
@@ -28,11 +31,56 @@ router.get("/home", (req, res, next) => {
   res.redirect("/");
 });
 
+//Get Movies page
+router.get("/Movies", (req, res, next) => {
+  let user = req.session.user;
+
+  if (user) {
+    movies.getAll(function (allmovies) {
+      res.render("movies", {
+        opp: req.session.opp,
+        name: user.fullname,
+        movies: allmovies,
+      });
+    });
+  } else res.redirect("/");
+});
+
+router.get("/movieSearchResults", (req, res, next) => {
+  let movies = req.session.movies;
+
+  if (movies) {
+    res.render("movieSearchResults", {
+      opp: req.session.opp,
+      mid: movies.mid,
+      title: movies.title,
+      genere: movies.genere,
+    });
+    return;
+  }
+  res.redirect("/");
+});
+
+router.post("/moviesearch", (req, res, next) => {
+  movies.search(req.body.title, function (result) {
+    if (result) {
+      // Store the user data in a session.
+      req.session.movies = result;
+      req.session.opp = 1;
+      // redirect the user to the home page.
+      res.redirect("/movieSearchResults");
+    } else {
+      // if the login function returns null send this error message back to the user.
+      res.send("Movie not found!");
+    }
+  });
+});
+
 // Post login data
 router.post("/login", (req, res, next) => {
   // The data sent from the user are stored in the req.body object.
   // call our login function and it will return the result(the user data).
-  user.login(req.body.username, req.body.password, function(result) {
+  user.login(req.body.username, req.body.password, function (result) {
     if (result) {
       // Store the user data in a session.
       req.session.user = result;
@@ -52,14 +100,14 @@ router.post("/register", (req, res, next) => {
   let userInput = {
     username: req.body.username,
     fullname: req.body.fullname,
-    password: req.body.password
+    password: req.body.password,
   };
   // call create function. to create a new user. if there is no error this function will return it's id.
-  user.create(userInput, function(lastId) {
+  user.create(userInput, function (lastId) {
     // if the creation of the user goes well we should get an integer (id of the inserted user)
     if (lastId) {
       // Get the user data by it's id. and store it in a session.
-      user.find(lastId, function(result) {
+      user.find(lastId, function (result) {
         req.session.user = result;
         req.session.opp = 0;
         res.redirect("/home");
@@ -75,7 +123,7 @@ router.get("/logout", (req, res, next) => {
   // Check if the session is exist
   if (req.session.user) {
     // destroy the session and redirect the user to the index page.
-    req.session.destroy(function() {
+    req.session.destroy(function () {
       res.redirect("/");
     });
   }

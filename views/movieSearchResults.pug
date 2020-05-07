@@ -1,0 +1,34 @@
+extends layout
+
+mixin message(opp, mid, title, genere)
+    if(opp)
+        table.movieTable
+            tr
+                th mid
+                th title
+                th genere
+                th 
+                tr
+                    td= mid
+                    td= title
+                    td= genere
+                    td
+                        input.submit-btn(type='submit' value='Rent')
+    else 
+        h1.greeting Welcome 
+            span=mid
+            span=title
+            span=genere
+            |  to our website
+
+
+append links 
+    li(style="float: right;")
+        a(href="/logout") Logout 
+    li(style="float: right;") 
+        a(href="/Movies") Movies
+
+block content
+    .dashboard 
+        .movieTableContainer 
+            +message(opp, mid, title, genere)

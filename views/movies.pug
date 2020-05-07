@@ -1,0 +1,30 @@
+extends layout
+
+append links
+    li(style="float: right;")
+        a(href="/logout") Logout
+    li(style="float: right;")
+        a(href="/Movies") Movies
+
+block content
+  body
+    form#search.search-box(method="post" action="/moviesearch")
+        input.search-text(type='text' name='title' placeholder='Type to serach')
+        input.search-btn(type='submit')
+          
+    .movieTableContainer
+      table.movieTable
+        tr
+          th mid
+          th title
+          th genere
+          th 
+        each movie in movies
+          tr
+            td= movie.mid
+            td= movie.title
+            td= movie.genere
+            td
+              input.submit-btn(type='submit' value='Rent')
+              
+    

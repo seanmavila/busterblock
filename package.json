@@ -18,7 +18,7 @@
     "html",
     "css"
   ],
-  "author": "Sean Avil, Brennon Sullivan, Oscar Rios, Thomas Welborn, William Lasater",
+  "author": "Sean Avila, Brennon Sullivan, Oscar Rios, Thomas Welborn, William Lasater",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^4.0.1",
