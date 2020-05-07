@@ -31,6 +31,17 @@ router.get("/home", (req, res, next) => {
   res.redirect("/");
 });
 
+// Get userHome page
+router.get("/adminHome", (req, res, next) => {
+  let user = req.session.user;
+
+  if (user) {
+    res.render("adminHome", { opp: req.session.opp, name: user.fullname });
+    return;
+  }
+  res.redirect("/");
+});
+
 //Get Movies page
 router.get("/Movies", (req, res, next) => {
   let user = req.session.user;
@@ -83,7 +94,7 @@ router.get("/movieSearchResults", (req, res, next) => {
 router.post("/moviesearch", (req, res, next) => {
   movies.search(req.body.title, function (result) {
     if (result) {
-      // Store the moviie data in a session.
+      // Store the movie data in a session.
       req.session.movies = result;
       req.session.opp = 1;
       // redirect the user to the movieSearchResults page
@@ -105,7 +116,7 @@ router.post("/login", (req, res, next) => {
       req.session.user = result;
       req.session.opp = 1;
       if (req.session.user.userRank == "admin") {
-        res.redirect("/Movies");
+        res.redirect("/adminHome");
       } else {
         res.redirect("/home");
       }
