@@ -2,18 +2,23 @@ extends layout
 
 mixin message(opp, mid, title, genere)
     if(opp)
-        table.movieTable
-            tr
-                th mid
-                th title
-                th genere
-                th 
-                tr
-                    td= mid
-                    td= title
-                    td= genere
-                    td
-                        input.submit-btn(type='submit' value='Rent')
+        .searchContainer
+            form#search.search-box(method="post" action="/moviesearch")
+                input.search-text(type='text' name='title' placeholder='Type to serach')
+                input.search-btn(type='submit')
+          
+        .movieTableContainer
+            table.movieTable
+                tr.movieTableHeadRow
+                    th.movieTableCells movie id
+                    th.movieTableCells movie title
+                    th.movieTableCells genre 
+                    tr.movieTableRow(id=mid)
+                        td.movieTableCells= mid
+                        td.movieTableCells= title
+                        td.movieTableCells= genere
+                        
+        .checkoutContainer Check Out!
     else 
         h1.greeting Welcome 
             span=mid

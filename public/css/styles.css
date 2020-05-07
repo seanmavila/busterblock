@@ -217,3 +217,61 @@ span {
   top: 0;
   position: relative;
 }
+
+.searchContainer {
+  position: relative;
+  width: 50%;
+  height: 50px;
+}
+
+.movieTableContainer {
+  position: relative;
+  width: 100%;
+}
+
+.movieTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.movieTableHeadRow {
+  height: 50px;
+}
+
+.movieTableRow {
+  height: 50px;
+  cursor: pointer;
+}
+
+.movieTableRow:hover,
+.movieTableRow:nth-child(even):hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.movieTableRow:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.movieTableRowSelected {
+  background-color: #55d6aa !important;
+}
+
+.movieTableCells {
+  padding: 8px;
+}
+
+.checkoutContainer {
+  position: fixed;
+  right: 0px;
+  bottom: 50px;
+  background-color: rgba(85, 214, 170, 1);
+  width: 170px;
+  height: 60px;
+  text-align: center;
+  color: #42a784;
+  font-family: Impact, Charcoal, sans-serif;
+  font-size: 33px;
+  line-height: 60px;
+  border-radius: 30px 0px 0px 30px;
+  cursor: pointer;
+}

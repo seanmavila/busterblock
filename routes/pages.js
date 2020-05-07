@@ -46,6 +46,25 @@ router.get("/Movies", (req, res, next) => {
   } else res.redirect("/");
 });
 
+router.get("/Checkout", (req, res, next) => {
+  let user = req.session.user;
+
+  if (user) {
+    console.log(req.session.shoppingCart);
+    res.render("checkout", { moviesChosen: req.session.shoppingCart });
+  } else res.redirect("/");
+});
+
+router.post("/addToCart", (req, res, next) => {
+  let user = req.session.user;
+
+  if (user) {
+    req.session.shoppingCart = req.body.moviesChosen;
+    console.log(req.body.moviesChosen);
+    res.end();
+  }
+});
+
 router.get("/movieSearchResults", (req, res, next) => {
   let movies = req.session.movies;
 

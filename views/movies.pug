@@ -7,24 +7,27 @@ append links
         a(href="/Movies") Movies
 
 block content
-  body
-    form#search.search-box(method="post" action="/moviesearch")
-        input.search-text(type='text' name='title' placeholder='Type to serach')
-        input.search-btn(type='submit')
+    .searchContainer
+      form#search.search-box(method="post" action="/moviesearch")
+          input.search-text(type='text' name='title' placeholder='Type to serach')
+          input.search-btn(type='submit')
           
     .movieTableContainer
+      script(type='text/javascript').
+        var movies =!{JSON.stringify(movies)}
+      script(src="/scripts/movieSelect.js")
       table.movieTable
-        tr
-          th mid
-          th title
-          th genere
-          th 
+        tr.movieTableHeadRow
+          th.movieTableCells movie title
+          th.movieTableCells genre 
+          th.movieTableCells stuff here
+          th.movieTableCells stuff here
         each movie in movies
-          tr
-            td= movie.mid
-            td= movie.title
-            td= movie.genere
-            td
-              input.submit-btn(type='submit' value='Rent')
+          tr.movieTableRow(id=movie.mid)
+            td.movieTableCells= movie.title
+            td.movieTableCells= movie.genere
+            td.movieTableCells some data
+            td.movieTableCells some data
+    .checkoutContainer Check Out!
               
     

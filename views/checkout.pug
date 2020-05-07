@@ -1,0 +1,14 @@
+extends layout
+
+append links
+    li(style="float: right;")
+        a(href="/logout") Logout
+    li(style="float: right;")
+        a(href="/Movies") Movies
+        
+
+
+block content
+  h lets check out
+  each movie in moviesChosen
+    h= movie
