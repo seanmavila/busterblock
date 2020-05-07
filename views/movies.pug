@@ -6,28 +6,28 @@ append links
     li(style="float: right;")
         a(href="/Movies") Movies
 
+          
 block content
-    .searchContainer
+  .searchContainer
       form#search.search-box(method="post" action="/moviesearch")
           input.search-text(type='text' name='title' placeholder='Type to serach')
-          input.search-btn(type='submit')
-          
-    .movieTableContainer
-      script(type='text/javascript').
-        var movies =!{JSON.stringify(movies)}
-      script(src="/scripts/movieSelect.js")
-      table.movieTable
-        tr.movieTableHeadRow
-          th.movieTableCells movie title
-          th.movieTableCells genre 
-          th.movieTableCells stuff here
-          th.movieTableCells stuff here
-        each movie in movies
-          tr.movieTableRow(id=movie.mid)
-            td.movieTableCells= movie.title
-            td.movieTableCells= movie.genere
-            td.movieTableCells some data
-            td.movieTableCells some data
-    .checkoutContainer Check Out!
+          input.search-btn(type='submit' value='')
+  .movieTableContainer
+    script(type='text/javascript').
+      var movies =!{JSON.stringify(movies)}
+    script(src="/scripts/movieSelect.js")
+    table.movieTable
+      tr.movieTableHeadRow
+        th.movieTableCells movie title
+        th.movieTableCells genre 
+        th.movieTableCells stuff here
+        th.movieTableCells stuff here
+      each movie in movies
+        tr.movieTableRow(id=movie.mid)
+          td.movieTableCells= movie.title
+          td.movieTableCells= movie.genere
+          td.movieTableCells some data
+          td.movieTableCells some data
+  .checkoutContainer Check Out!
               
     

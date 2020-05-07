@@ -2,29 +2,30 @@ extends layout
 
 mixin message(opp, mid, title, genere)
     if(opp)
-        .searchContainer
-            form#search.search-box(method="post" action="/moviesearch")
-                input.search-text(type='text' name='title' placeholder='Type to serach')
-                input.search-btn(type='submit')
-          
-        .movieTableContainer
-            table.movieTable
+        block content
+            .searchContainer
+                form#search.search-box(method="post" action="/moviesearch")
+                    input.search-text(type='text' name='title' placeholder='Type to serach')
+                    input.search-btn(type='submit' value='')
+            .movieTableContainer
+                script(type='text/javascript').
+                    var movies =!{JSON.stringify(movies)}
+                script(src="/scripts/movieSelect.js")
+                table.movieTable
                 tr.movieTableHeadRow
-                    th.movieTableCells movie id
                     th.movieTableCells movie title
                     th.movieTableCells genre 
-                    tr.movieTableRow(id=mid)
-                        td.movieTableCells= mid
-                        td.movieTableCells= title
-                        td.movieTableCells= genere
-                        
-        .checkoutContainer Check Out!
+                    th.movieTableCells stuff here
+                    th.movieTableCells stuff here
+                tr.movieTableRow(id=mid)
+                    td.movieTableCells= title
+                    td.movieTableCells= genere
+                    td.movieTableCells some data
+                    td.movieTableCells some data
+            .checkoutContainer Check Out!
     else 
-        h1.greeting Welcome 
-            span=mid
-            span=title
-            span=genere
-            |  to our website
+        h1.greeting Ooops page is missing
+            
 
 
 append links 

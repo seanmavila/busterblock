@@ -83,13 +83,13 @@ router.get("/movieSearchResults", (req, res, next) => {
 router.post("/moviesearch", (req, res, next) => {
   movies.search(req.body.title, function (result) {
     if (result) {
-      // Store the user data in a session.
+      // Store the moviie data in a session.
       req.session.movies = result;
       req.session.opp = 1;
-      // redirect the user to the home page.
+      // redirect the user to the movieSearchResults page
       res.redirect("/movieSearchResults");
     } else {
-      // if the login function returns null send this error message back to the user.
+      // if the search function returns null send this error message back to the user.
       res.send("Movie not found!");
     }
   });
@@ -104,8 +104,12 @@ router.post("/login", (req, res, next) => {
       // Store the user data in a session.
       req.session.user = result;
       req.session.opp = 1;
+      if (req.session.user.userRank == "admin") {
+        res.redirect("/Movies");
+      } else {
+        res.redirect("/home");
+      }
       // redirect the user to the home page.
-      res.redirect("/home");
     } else {
       // if the login function returns null send this error message back to the user.
       res.send("Username/Password incorrect!");
