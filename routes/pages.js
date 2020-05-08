@@ -162,6 +162,20 @@ router.post("/delUser", (req, res, next) => {
   });
 });
 
+router.post("/updateUser", (req, res, next) => {
+  // prepare an object containing all user inputs.
+  let userInput = {
+    username: req.body.username,
+    fullname: req.body.fullname,
+    userRank: req.body.userRank,
+    id: req.body.id,
+  };
+  // call create function. to create a new user. if there is no error this function will return it's id.
+  user.update(userInput, function (lastId) {
+    res.redirect("/adminHome");
+  });
+});
+
 // Post register data
 router.post("/createMovie", (req, res, next) => {
   // prepare an object containing all user inputs.

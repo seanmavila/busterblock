@@ -80,6 +80,22 @@ User.prototype = {
       callback(result.insertId);
     });
   },
+  update: function (body, callback) {
+    // this array will contain the values of the fields.
+    var bind = [];
+    // loop in the attributes of the object and push the values into the bind array.
+    for (prop in body) {
+      bind.push(body[prop]);
+    }
+    // prepare the sql query
+    let sql = `UPDATE users SET username = ?, fullname = ?, userRank = ? WHERE id = ?`;
+    // call the query give it the sql string and the values (bind array)
+    pool.query(sql, bind, function (err, result) {
+      if (err) throw err;
+      // return the last inserted id. if there is no error
+      callback(result.insertId);
+    });
+  },
 };
 
 module.exports = User;
