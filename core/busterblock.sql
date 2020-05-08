@@ -78,15 +78,16 @@ DROP TABLE IF EXISTS `users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users`
 (
-  `uid` int NOT NULL,
-  `name` varchar
-(45) NOT NULL,
-  `priv` int NOT NULL,
-  `pass` varchar
-(16) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar
+(20) DEFAULT NULL,
+  `fullname` varchar
+(46) DEFAULT NULL,
+  `password` varchar
+(128) DEFAULT NULL,
   PRIMARY KEY
-(`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+(`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +99,10 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `
 users`
 VALUES
-  (0, 'ye is in the buiiiilldddiiiinn', 69, 'yeet');
+  (16, 'admin', 'sean avila', '$2b$10$RUNEPb/TtU7NpHxBfkVuE.PRVC3XAnkjDKXNQRMFIpp1RymVEeuxq'),
+  (17, 'user1', 'user 1', '$2b$10$w/yp9HbL3wUupGu87LxP7ekzMtmttyS.faTfqf9bnJJsR982GkxPK'),
+  (18, 'user2', 'user 2', '$2b$10$F0Htp6M/ssXBStzzuRbwy.JmJSemTqdnzY6X0HsZEyuD2yLTeKvQq'),
+  (19, 'admin2', 'root', '$2b$10$Iomm4E08WGUUr.W8sqYin.S7wFjf6XlfShd9vE/WoRN0fmcy07esW');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -111,4 +115,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-12 11:44:21
+-- Dump completed on 2020-04-01 21:41:56

@@ -1,0 +1,40 @@
+extends layout
+
+mixin message(opp, mid, title, genere)
+    if(opp)
+        block content
+            .searchContainer
+                form#search.search-box(method="post" action="/moviesearch")
+                    input.search-text(type='text' name='title' placeholder='Type to serach')
+                    input.search-btn(type='submit' value='')
+            .movieTableContainer
+                script(type='text/javascript').
+                    var movies =!{JSON.stringify(movies)}
+                script(src="/scripts/movieSelect.js")
+                table.movieTable
+                tr.movieTableHeadRow
+                    th.movieTableCells movie title
+                    th.movieTableCells genre 
+                    th.movieTableCells stuff here
+                    th.movieTableCells stuff here
+                tr.movieTableRow(id=mid)
+                    td.movieTableCells= title
+                    td.movieTableCells= genere
+                    td.movieTableCells some data
+                    td.movieTableCells some data
+            .checkoutContainer Check Out!
+    else 
+        h1.greeting Ooops page is missing
+            
+
+
+append links 
+    li(style="float: right;")
+        a(href="/logout") Logout 
+    li(style="float: right;") 
+        a(href="/Movies") Movies
+
+block content
+    .dashboard 
+        .movieTableContainer 
+            +message(opp, mid, title, genere)

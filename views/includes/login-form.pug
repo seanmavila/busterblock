@@ -1,0 +1,35 @@
+.form-box
+  .btn-box
+    #btn
+    button.toggle-btn(type='button' onclick='login()')
+      | Log In
+    button.toggle-btn(type='button' onclick='register()')
+      | Register
+  form#login.input-group(method="post" action="/login")
+    input.input-field(type='text' placeholder='Username' name='username')
+    input.input-field(type='password' placeholder='Password' name='password')
+    input.check-box(type='checkbox')
+    span Remember Password
+    input.submit-btn(type='submit' value='Login')
+  form#register.input-group(method="post" action="/register")
+    input.input-field(type='text' placeholder='Username' name="username")
+    input.input-field(type='text' placeholder='Full name' name="fullname")
+    input.input-field(type='password' placeholder='Password' name="password")
+    input.input-field(type='password' placeholder='Confirm Password' name="confirm-password")
+    input.check-box(type='checkbox')
+    span I agree to the terms and conditions
+    input.submit-btn(type='submit' value='Register')
+script.
+  var x = document.getElementById("login");
+  var y = document.getElementById("register");
+  var z = document.getElementById("btn");
+  function register() {
+  x.style.left = "-400px";
+  y.style.left = "50px";
+  z.style.left = "110px";
+  }
+  function login() {
+  x.style.left = "50px";
+  y.style.left = "450px";
+  z.style.left = "0px";
+  }

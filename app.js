@@ -1,35 +1,50 @@
-const http = require("http");
-const fs = require("fs");
 const express = require("express");
-const mysql = require("mysql");
-const port = 3000;
-
+const session = require("express-session");
+const path = require("path");
+const pageRouter = require("./routes/pages");
 const app = express();
 
-var connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "SMA8320sma1994$",
-  database: "testdb"
+// for body parser. to collect data that sent from the client.
+app.use(express.urlencoded({ extended: false }));
+
+// Serve static files. CSS, Images, JS files ... etc
+app.use(express.static(path.join(__dirname, "public")));
+
+// Template engine. PUG
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
+
+// session
+app.use(
+  session({
+    secret: "ayyylmao",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 60 * 1000 * 30,
+    },
+  })
+);
+
+// Routers
+app.use("/", pageRouter);
+
+// Errors => page not found 404
+app.use((req, res, next) => {
+  var err = new Error("Page not found");
+  err.status = 404;
+  next(err);
 });
 
-connection.connect(function(error) {
-  if (!!error) {
-    console.log("mysql connect Error");
-  } else {
-    console.log("Connected to mysql");
-  }
+// Handling errors (send them to the client)
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.send(err.message);
 });
 
-app.get("/", function(req, resp) {
-  connection.query("select * from cities", function(error, rows, fields) {
-    if (!!error) {
-      console.log("Query Error");
-    } else {
-      console.log("Successful query");
-    }
-  });
+// Setting up the server
+app.listen(3000, () => {
+  console.log("Server is running on port 3000...");
 });
-app.listen("3000", () => {
-  console.log("Server started on port 3000");
-});
+
+module.exports = app;
