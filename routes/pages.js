@@ -151,6 +151,41 @@ router.post("/register", (req, res, next) => {
     }
   });
 });
+router.post("/delUser", (req, res, next) => {
+  // prepare an object containing all user inputs.
+  let userInput = {
+    id: req.body.id,
+  };
+  // call create function. to create a new user. if there is no error this function will return it's id.
+  user.delete(userInput, function (lastId) {
+    res.redirect("/adminHome");
+  });
+});
+
+// Post register data
+router.post("/createMovie", (req, res, next) => {
+  // prepare an object containing all user inputs.
+  let userInput = {
+    mid: req.body.mid,
+    title: req.body.title,
+    genere: req.body.genere,
+  };
+  // call create function. to create a new user. if there is no error this function will return it's id.
+  movies.create(userInput, function (lastId) {
+    res.redirect("/adminHome");
+  });
+});
+
+router.post("/delMovie", (req, res, next) => {
+  // prepare an object containing all user inputs.
+  let userInput = {
+    mid: req.body.mid,
+  };
+  // call create function. to create a new user. if there is no error this function will return it's id.
+  movies.delete(userInput, function (lastId) {
+    res.redirect("/adminHome");
+  });
+});
 
 // Get loggout page
 router.get("/logout", (req, res, next) => {

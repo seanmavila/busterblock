@@ -33,7 +33,7 @@ block content
             button.admintoggle-btn(type='button' onclick='delUser()')
                 | Delete User
         form#addMovie.admininput-group(method="post" action="/createMovie")
-            input.input-field(type='text' placeholder='Movie ID' name='mid')
+            input.input-field(type='number' placeholder='Movie ID' name='mid')
             input.input-field(type='text' placeholder='Movie Title' name='title')
             input.input-field(type='text' placeholder='Genre' name='genere')
             input.submit-btn(type='submit' value='Add')
@@ -42,6 +42,7 @@ block content
             input.submit-btn(type='submit' value='Delete')
         form#updateUser.admininput-group(method="post" action="/updateUser")
             input.input-field(type='text' placeholder='Username' name='username')
+            input.input-field(type='text' placeholder='Full Name' name='fullname')
             input.input-field(type='text' placeholder='Rank' name='userRank')
             input.submit-btn(type='submit' value='Update')
         form#delUser.admininput-group(method="post" action="/delUser")
