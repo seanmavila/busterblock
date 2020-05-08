@@ -53,15 +53,13 @@ Movies.prototype = {
   },
 
   search: function (title, callback) {
-    // find the user data by his username.
-    this.find(title, function (user) {
-      // if there is a user by this username.
-      if (user) {
-        // now we check his password.
-        callback(user);
+    // find the movie by title
+    this.find(title, function (movie) {
+      // if there is a title by this name
+      if (movie) {
+        callback(movie);
         return;
       }
-      // if the username/password is wrong then return null.
       callback(null);
     });
   },
@@ -73,7 +71,7 @@ Movies.prototype = {
       var field = Number.isInteger(movie) ? "mid" : "title";
     }
     // prepare the sql query
-    let sql = `SELECT * FROM movies WHERE ${field} = ?`;
+    let sql = `SELECT * FROM movies WHERE ${field} like ?`;
 
     pool.query(sql, movie, function (err, result) {
       if (err) throw err;
