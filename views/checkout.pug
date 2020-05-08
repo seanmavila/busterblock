@@ -9,6 +9,12 @@ append links
 
 
 block content
-  h lets check out
-  each movie in moviesChosen
-    h= movie
+  .checkoutBody
+    script(src="/scripts/checkout.js")
+    h Shopping Cart
+    .shopping-cart-listContainer
+      each movie in moviesChosen
+        .shopping-cart-row
+          div.shopping-cart-title= movie.title
+          div.shopping-cart-price $I need prices
+    .purchase-btn Purchase Now!
